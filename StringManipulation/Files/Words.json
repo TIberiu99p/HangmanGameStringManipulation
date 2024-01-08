@@ -1,0 +1,38 @@
+﻿{
+	"Easy": [
+		"Shoes",
+		"Books",
+		"Grocery",
+		"Baby",
+		"Beauty",
+		"Kids",
+		"Movies",
+		"boohoo"
+	],
+	"Medium": [
+		"Computers",
+		"Tools",
+		"Clothing",
+		"Electronics",
+		"Outdoors",
+		"Home",
+		"Jewelry",
+		"Garden"
+	],
+	"Hard": [
+		"Industrial",
+		"Industrial",
+		"Computers",
+		"Beauty",
+		"Grocery",
+		"Computers",
+		"Outdoors",
+		"Shoes",
+		"Kids",
+		"Outdoors",
+		"Garden",
+		"Garden",
+		"Beauty",
+		"Computers"
+	]
+}
