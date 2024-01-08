@@ -35,42 +35,62 @@ namespace StringManipulation
             {
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
+                return;
             }
 
             Console.WriteLine("---------");
 
             // Store each word into an array using split on '\n'
             var array = contents.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            string letterToSearch = "o";
+           
+            //choose a randmom word for the game
+            Random random = new Random();
+            string selectWord = array[random.Next(array.Length)].Trim().ToLower();
+            char[] guessedWord = new char[selectWord.Length];
 
-            // Iterate through the array printing out each word.
-            foreach (var word in array)
+            for(int i = 0; i < selectWord.Length; i++)
             {
-                string letter = letterToSearch.ToLower();
-                string wordToSearch = word.ToLower();
-                int index = 0;
+                guessedWord[i] = '_';
+            }
 
-                if (wordToSearch.Contains(letter))
+            int attempts = 5;
+
+            while (attempts > 0) 
+            {
+                Console.WriteLine($"Current word: {new string(guessedWord)}");
+                Console.WriteLine($"Attempts left: {attempts}");
+                Console.Write("Enter a letter: ");
+                char guess = Console.ReadKey().KeyChar;
+
+                bool correctGuess = false;
+
+                for(int i = 0;i < array.Length;i++) 
                 {
-                    // Find index where letter is
-                    if (wordToSearch.IndexOf(letter) != -1)
+                    if (selectWord[i] == guess) 
                     {
-                        while ((index = wordToSearch.IndexOf(letter, index)) != -1)
-                        {
-                            Console.WriteLine("word: " + wordToSearch + " " + letter + " found at position " + " " + index);
-                            index++;
-                            list.Add(new positionOfCharacter() { nameOfWord = wordToSearch, c = letter, pos = index });
-                        }
+                        guessedWord[i] = guess;
+                        correctGuess = true;
                     }
                 }
 
-                Console.WriteLine("");
+                if (!correctGuess)
+                {
+                    attempts--;
+                    Console.WriteLine("Incorrect guess! Try again.");
+                }
+
+                if(new string(guessedWord) == selectWord)
+                {
+                    Console.WriteLine($"You guessed the word {selectWord}");
+                    break;
+                }
+
+                if(attempts == 0)
+                {
+                    Console.WriteLine($"No more attempts left. The correct word was {selectWord}");
+                }
             }
 
-            foreach (var li in list)
-            {
-                // Console.WriteLine($"word: {li.nameOfWord} letter: {li.c} position: {li.pos}");
-            }
 
             Console.ReadLine();
         }
