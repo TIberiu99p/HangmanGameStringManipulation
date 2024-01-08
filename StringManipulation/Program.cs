@@ -25,7 +25,7 @@ namespace StringManipulation
                 Console.WriteLine();
                 playAgain = (response == 'y' || response == 'Y');
             }
-            
+
         }
 
         static void HangManGame()
@@ -69,6 +69,8 @@ namespace StringManipulation
 
             while (attempts > 0)
             {
+                Console.Clear();
+                DrawHangman(attempts);
                 Console.WriteLine("Current word: " + new string(guessedWord));
                 Console.WriteLine("Attempts left: " + attempts);
                 Console.Write("Enter a letter: ");
@@ -93,8 +95,12 @@ namespace StringManipulation
                     Console.WriteLine("Incorrect guess! Try again.");
                 }
 
+                Console.Out.Flush();
+
                 if (new string(guessedWord) == selectWord)
                 {
+                    Console.Clear();
+                    DrawHangman(attempts);
                     Console.WriteLine("Congratulations! You guessed the word: " + selectWord);
                     break;
                 }
@@ -102,11 +108,78 @@ namespace StringManipulation
 
             if (attempts == 0)
             {
+                Console.Clear();
+                DrawHangman(attempts);
                 Console.WriteLine("Sorry, you ran out of attempts. The correct word was: " + selectWord);
             }
 
 
             Console.ReadLine();
+        }
+
+        static void DrawHangman(int incorrectAttempts)
+        {
+            switch (incorrectAttempts)
+            {
+                case 6:
+                    Console.WriteLine("   ________");
+                    Console.WriteLine("   |      |");
+                    Console.WriteLine("   |");
+                    Console.WriteLine("   |");
+                    Console.WriteLine("   |");
+                    Console.WriteLine("___|___");
+                    break;
+                case 5:
+                    Console.WriteLine("   ________");
+                    Console.WriteLine("   |      |");
+                    Console.WriteLine("   |      O");
+                    Console.WriteLine("   |");
+                    Console.WriteLine("   |");
+                    Console.WriteLine("___|___");
+                    break;
+                case 4:
+                    Console.WriteLine("   ________");
+                    Console.WriteLine("   |      |");
+                    Console.WriteLine("   |      O");
+                    Console.WriteLine("   |      |");
+                    Console.WriteLine("   |");
+                    Console.WriteLine("___|___");
+                    break;
+                case 3:
+                    Console.WriteLine("   ________");
+                    Console.WriteLine("   |      |");
+                    Console.WriteLine("   |      O");
+                    Console.WriteLine("   |     /|");
+                    Console.WriteLine("   |");
+                    Console.WriteLine("___|___");
+                    break;
+                case 2:
+                    Console.WriteLine("   ________");
+                    Console.WriteLine("   |      |");
+                    Console.WriteLine("   |      O");
+                    Console.WriteLine("   |     /|\\");
+                    Console.WriteLine("   |");
+                    Console.WriteLine("___|___");
+                    break;
+                case 1:
+                    Console.WriteLine("   ________");
+                    Console.WriteLine("   |      |");
+                    Console.WriteLine("   |      O");
+                    Console.WriteLine("   |     /|\\");
+                    Console.WriteLine("   |     /");
+                    Console.WriteLine("___|___");
+                    break;
+                case 0:
+                    Console.WriteLine("   ________");
+                    Console.WriteLine("   |      |");
+                    Console.WriteLine("   |      O");
+                    Console.WriteLine("   |     /|\\");
+                    Console.WriteLine("   |     / \\");
+                    Console.WriteLine("___|___");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
