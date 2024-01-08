@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Security;
 
 namespace StringManipulation
 {
@@ -17,7 +18,7 @@ namespace StringManipulation
         {
             string contents = "";
             List<positionOfCharacter> list = new List<positionOfCharacter>();
-
+            
             try
             {
                 // Get file name.
@@ -39,11 +40,10 @@ namespace StringManipulation
             }
 
             Console.WriteLine("---------");
-
-            // Store each word into an array using split on '\n'
-            var array = contents.Split('\n', StringSplitOptions.RemoveEmptyEntries);
            
-            //choose a randmom word for the game
+            var array = contents.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+        
+            
             Random random = new Random();
             string selectWord = array[random.Next(array.Length)].Trim().ToLower();
             char[] guessedWord = new char[selectWord.Length];
@@ -53,20 +53,22 @@ namespace StringManipulation
                 guessedWord[i] = '_';
             }
 
-            int attempts = 5;
+            int attempts = 6;
 
-            while (attempts > 0) 
+            while (attempts > 0)
             {
-                Console.WriteLine($"Current word: {new string(guessedWord)}");
-                Console.WriteLine($"Attempts left: {attempts}");
+                Console.WriteLine("Current word: " + new string(guessedWord));
+                Console.WriteLine("Attempts left: " + attempts);
                 Console.Write("Enter a letter: ");
                 char guess = Console.ReadKey().KeyChar;
+                Console.WriteLine();
 
                 bool correctGuess = false;
 
-                for(int i = 0;i < array.Length;i++) 
+                for (int i = 0; i < selectWord.Length; i++)
                 {
-                    if (selectWord[i] == guess) 
+             
+                    if (i < guessedWord.Length && selectWord[i] == guess)
                     {
                         guessedWord[i] = guess;
                         correctGuess = true;
@@ -79,16 +81,16 @@ namespace StringManipulation
                     Console.WriteLine("Incorrect guess! Try again.");
                 }
 
-                if(new string(guessedWord) == selectWord)
+                if (new string(guessedWord) == selectWord)
                 {
-                    Console.WriteLine($"You guessed the word {selectWord}");
+                    Console.WriteLine("Congratulations! You guessed the word: " + selectWord);
                     break;
                 }
+            }
 
-                if(attempts == 0)
-                {
-                    Console.WriteLine($"No more attempts left. The correct word was {selectWord}");
-                }
+            if (attempts == 0)
+            {
+                Console.WriteLine("Sorry, you ran out of attempts. The correct word was: " + selectWord);
             }
 
 
