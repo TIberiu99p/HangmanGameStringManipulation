@@ -16,19 +16,31 @@ namespace StringManipulation
     {
         static void Main()
         {
+            bool playAgain = true;
+            while (playAgain)
+            {
+                HangManGame();
+                Console.Write("Want to play again? (y/n): ");
+                char response = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                playAgain = (response == 'y' || response == 'Y');
+            }
+            
+        }
+
+        static void HangManGame()
+        {
+
             string contents = "";
             List<positionOfCharacter> list = new List<positionOfCharacter>();
-            
+
             try
             {
-                // Get file name.
                 string path = @"C:\Users\pahar\OneDrive\Desktop\Peregrine\Work\Hangman\HangmanGameStringManipulation\StringManipulation\Files\Words.txt";
-                // Get path name.
                 string filename = Path.GetFileName(path);
-                // Open the text file using a stream reader. Read into a string
                 using (var sr = new StreamReader(path))
                 {
-                    // Read the stream as a string, and write the string to the console.
+
                     contents = sr.ReadToEnd();
                 }
             }
@@ -40,15 +52,15 @@ namespace StringManipulation
             }
 
             Console.WriteLine("---------");
-           
+
             var array = contents.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-        
-            
+
+
             Random random = new Random();
             string selectWord = array[random.Next(array.Length)].Trim().ToLower();
             char[] guessedWord = new char[selectWord.Length];
 
-            for(int i = 0; i < selectWord.Length; i++)
+            for (int i = 0; i < selectWord.Length; i++)
             {
                 guessedWord[i] = '_';
             }
@@ -67,7 +79,7 @@ namespace StringManipulation
 
                 for (int i = 0; i < selectWord.Length; i++)
                 {
-             
+
                     if (i < guessedWord.Length && selectWord[i] == guess)
                     {
                         guessedWord[i] = guess;
